@@ -4,11 +4,13 @@
 void List::insert(int number) {
 
     // list_.insert(std::upper_bound( list_.begin(), list_.end(), number), number);
+    // int n = *number;
     auto it = list_.begin();
-    while (it != list_.end() && (*it < number)) {
+    while (it != list_.end() && (**it < number)) {
         ++it;
     }
-    list_.insert(it,number);
+    int* num = new int(number);
+    list_.insert(it, num);
 }
 
 void List::remove(int index) {
@@ -24,8 +26,8 @@ void List::remove(int index) {
 
 void List::print() {
 
-    for( int num : list_) {
-        std::cout << num << " ";
+    for( int* num : list_) {
+        std::cout << *num << " ";
     }
     std::cout << std::endl;
 }
