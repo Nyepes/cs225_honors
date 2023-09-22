@@ -2,9 +2,11 @@
 
 class List {
 private:
-    std::list<int*> list_;
+    std::list<int> list_;
 public:
+    void insertFront(int number);
     void insert(int number);
-    void remove(int index);
+    void mergeList(List& l);
+    void remove();
     void print();
 };

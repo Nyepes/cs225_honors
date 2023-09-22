@@ -3,31 +3,28 @@
 
 void List::insert(int number) {
 
-    // list_.insert(std::upper_bound( list_.begin(), list_.end(), number), number);
-    // int n = *number;
     auto it = list_.begin();
-    while (it != list_.end() && (**it < number)) {
+    while (it != list_.end() && (*it < number)) {
         ++it;
     }
-    int* num = new int(number);
-    list_.insert(it, num);
+    list_.insert(it, number);
 }
 
-void List::remove(int index) {
-    auto it = list_.begin();
-
-    // it += index;
-    while(index-- > 0) {
-        ++it;
-    }
-
-    list_.erase(it);
+void List::insertFront(int number) {
+    list_.push_back(number);
+}
+void List::remove() {
+    list_.erase(list_.end() - 1);
+}
+void List::mergeList(List& l) {
+    list_.insert(list_.end(), l.list_.rbegin(), l.list_.rend());
+    l.list_.clear();
 }
 
 void List::print() {
 
-    for( int* num : list_) {
-        std::cout << *num << " ";
+    for( int num : list_) {
+        std::cout << num << " ";
     }
     std::cout << std::endl;
 }

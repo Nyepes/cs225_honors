@@ -1,34 +1,38 @@
 #include <iostream>
 #include <random>
-
-#include "vector.h"
-// #include "list.h"
+#include<chrono>
+// #include "vector.h"
+#include "cll.h" // Notice new implementation of Linked List
 
 int main(int argc, char **argv) {
     if(argc != 2) {
         std::cout << "random: must specify number" << std::endl;
-        return (404);
+        return (404); 
     }
-    int number = atoi(argv[1]);
+    int SIZE = atoi(argv[1]);
 
+    // int SIZE = 10000;
     List list;
-
-    std::random_device rd;  // a seed source for the random number engine
-    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> randint(1, 100);
-
-    for(int i = 0; i < number; ++i){    
-        int number =  randint(gen);
-        list.insert(number);
+    for(int i = 0; i < SIZE; ++i) {   // Init Original List 
+        list.insertFront(0);
+    }
+    List mergeList; // Init List that will be merged to the original list
+    for (int i = 0; i < SIZE; ++i) {
+        mergeList.insertFront(i);
     }
     
-    // list.print();
+    auto start{std::chrono::steady_clock::now()};
+    auto end{std::chrono::steady_clock::now()};
+    // Start the clock
+    start = std::chrono::steady_clock::now();
+    list.mergeList(mergeList);
+    end = std::chrono::steady_clock::now();
+    // End Clock
+    std::chrono::duration<double> elapsed_time{end - start};
 
-    for(int i = number; i > 0; --i){
-        int index = randint(gen) % i;
-        list.remove(index);
-        // list.print();
-   }
+    
 
+    std::cout << "Run in: " << elapsed_time.count() << "s\n";
     return 0;
 }
+
